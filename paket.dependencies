@@ -1,0 +1,12 @@
+source https://www.nuget.org/api/v2
+
+framework: net45
+content: none
+
+nuget dbup
+nuget Resourcer.Fody
+nuget commandlineparser prerelease
+nuget GitVersionTask
+nuget Stylecop.Analyzers
+
+gist tpluscode/a285267d2543466fc35c3a168c846f9f
