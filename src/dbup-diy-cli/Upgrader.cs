@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using CommandLine;
+using CommandLine.Text;
 
 namespace DbUp.Cli
 {
@@ -20,8 +22,20 @@ namespace DbUp.Cli
             return Parser.Default.ParseArguments<LocalOptions, RemoteOptions>(this.args)
                 .MapResult(
                     (LocalOptions options) => UpgradeDatabase(callingAssembly, options),
-                    (RemoteOptions options) => UpgradeDatabase(callingAssembly, options),
+                    (RemoteOptions options) => UpgradeRemote(callingAssembly, options),
                     errors => 1);
+        }
+
+        private static int UpgradeRemote(Assembly callingAssembly, RemoteOptions options)
+        {
+            if (string.IsNullOrWhiteSpace(options.ConnectionStringOption) ||
+                string.IsNullOrWhiteSpace(options.ConnectionString))
+            {
+                Console.WriteLine($"Please provide either -c or -n switch. Run {System.Diagnostics.Process.GetCurrentProcess().ProcessName}.exe help for details");
+                return 1;
+            }
+
+            return UpgradeDatabase(callingAssembly, options);
         }
 
         private static int UpgradeDatabase(Assembly callingAssembly, BaseOptions options)
