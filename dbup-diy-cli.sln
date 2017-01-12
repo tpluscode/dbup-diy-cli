@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{D0E347
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbup-diy-cli", "src\dbup-diy-cli\dbup-diy-cli.csproj", "{08041BD1-562E-4F8A-878A-642C69EA4237}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "src\Example\Example.csproj", "{034FD1F3-D888-422D-85C7-C96305E7B9AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{08041BD1-562E-4F8A-878A-642C69EA4237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08041BD1-562E-4F8A-878A-642C69EA4237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08041BD1-562E-4F8A-878A-642C69EA4237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{034FD1F3-D888-422D-85C7-C96305E7B9AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{034FD1F3-D888-422D-85C7-C96305E7B9AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034FD1F3-D888-422D-85C7-C96305E7B9AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{034FD1F3-D888-422D-85C7-C96305E7B9AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

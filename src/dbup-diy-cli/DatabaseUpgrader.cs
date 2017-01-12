@@ -11,13 +11,13 @@ namespace DbUp.Cli
         private readonly UpgradeEngine recreationEngine;
         private readonly BaseOptions options;
 
-        public DatabaseUpgrader(BaseOptions options)
+        public DatabaseUpgrader(Assembly callingAssembly, BaseOptions options)
         {
             this.options = options;
 
             this.upgradeEngine = DeployChanges.To
                 .SqlDatabase(options.ConnectionString)
-                .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly(), this.IncludeDevSeeds)
+                .WithScriptsEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
                 .WithTransactionPerScript()
                 .LogToConsole()
                 .Build();

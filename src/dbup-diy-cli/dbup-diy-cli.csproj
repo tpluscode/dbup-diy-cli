@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DatabaseUpgrader.cs" />
     <Compile Include="LocalOptions.cs" />
+    <Compile Include="Upgrader.cs" />
     <Compile Include="RemoteOptions.cs" />
     <Compile Include="BaseOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
