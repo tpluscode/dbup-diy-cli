@@ -1,4 +1,4 @@
-# DbUp-DYI-CLI
+# DbUp-DIY-CLI [![Build status][av-badge]][build] [![NuGet version][nuget-badge]][nuget-link]
 
 Do-It-Yourself CommandLine Interface for DbUp
 
@@ -16,7 +16,7 @@ dbup is a great library but requires some repeatable setup in code:
 ### Setup
 
 1. Create a Console project (like `ConsoleApplication1`)
-1. `install package dbup-dyi-cli`
+1. `install package dbup-diy-cli`
 1. Add your SQL files as embedded resources
 1. Modify your `Main`:
 
@@ -74,4 +74,9 @@ connectionstring (`-c` switch) or a name to find in `app.config` (`-n` switch)
 ## Why not a ready-built CLI?
 
 This way it's easier to use with database engines other that MS SQL, by installing `dbup-X` package together with 
-`dbup-dyi-cli`.
+`dbup-diy-cli`.
+
+[av-badge]: https://ci.appveyor.com/api/projects/status/hvhilv1f12n6dl52/branch/master?svg=true
+[build]: https://ci.appveyor.com/project/tpluscode78631/dbup-diy-cli/branch/master
+[nuget-badge]: https://badge.fury.io/nu/dbup-diy-cli.svg
+[nuget-link]: https://badge.fury.io/nu/dbup-diy-cli
