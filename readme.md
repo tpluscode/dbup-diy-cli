@@ -1,6 +1,6 @@
 # DbUp-DYI-CLI
 
-Do-It-Yourself dbup CommandLine Interface
+Do-It-Yourself CommandLine Interface for DbUp
 
 ## Introduction
 
