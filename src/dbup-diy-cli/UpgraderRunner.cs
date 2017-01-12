@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Reflection;
 using DbUp.Engine;
+using DbUp.Helpers;
 using Resourcer;
 
 namespace DbUp.Cli
 {
-    public class DatabaseUpgrader
+    public class UpgraderRunner
     {
         private readonly UpgradeEngine upgradeEngine;
         private readonly UpgradeEngine recreationEngine;
+        private readonly UpgradeEngine procedureEngine;
         private readonly BaseOptions options;
 
-        public DatabaseUpgrader(Assembly callingAssembly, BaseOptions options)
+        public UpgraderRunner(Assembly callingAssembly, BaseOptions options)
         {
             this.options = options;
 
@@ -19,7 +21,13 @@ namespace DbUp.Cli
                 .SqlDatabase(options.ConnectionString)
                 .WithScriptsEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
                 .WithTransactionPerScript()
-                .LogToConsole()
+                .Build();
+
+            this.procedureEngine = DeployChanges.To
+                .SqlDatabase(options.ConnectionString)
+                .WithScriptsEmbeddedInAssembly(callingAssembly, this.IsStoredProcedure)
+                .JournalTo(new NullJournal())
+                .WithTransactionPerScript()
                 .Build();
 
             this.recreationEngine = DeployChanges.To
@@ -57,9 +65,23 @@ namespace DbUp.Cli
             return this.upgradeEngine.MarkAsExecuted().Successful;
         }
 
+        private static bool IsRecreateScript(string fileName)
+        {
+            return fileName.Contains("XX.RecreateDatabase.sql");
+        }
+
+        private bool IsStoredProcedure(string fileName)
+        {
+            var shouldIncludeScript = IsRecreateScript(fileName) == false;
+
+            shouldIncludeScript &= this.options.StoredProcedurePattern.IsMatch(fileName) == true;
+
+            return shouldIncludeScript;
+        }
+
         private bool IncludeDevSeeds(string fileName)
         {
-            var shouldIncludeScript = fileName.Contains("XX.RecreateDatabase.sql") == false;
+            var shouldIncludeScript = IsRecreateScript(fileName) == false;
 
             if (this.options.IncludeDeveloperSeeds == false)
             {

@@ -17,11 +17,20 @@ namespace DbUp.Cli
         [Option("dev-seed-pattern", Default = "_dev_", HelpText = "Regular expression to match and select developer seed script (case-insensitive)")]
         public string DevSeedPatternString
         {
-            get { return this.DevSeedPattern.ToString(); }
+            get { return this.DevSeedPattern?.ToString(); }
             set { this.DevSeedPattern = new Regex(value, RegexOptions.IgnoreCase); }
         }
 
+        [Option("store-procedure-pattern", Default = "sp_", HelpText = "Regular expression to match and select stored procedure scripts (case-insensitive)")]
+        public string StoredProcedurePatternString
+        {
+            get { return this.StoredProcedurePattern?.ToString(); }
+            set { this.StoredProcedurePattern = new Regex(value, RegexOptions.IgnoreCase); }
+        }
+
         public Regex DevSeedPattern { get; private set; }
+
+        public Regex StoredProcedurePattern { get; private set; }
 
         public abstract string ConnectionString { get; }
 

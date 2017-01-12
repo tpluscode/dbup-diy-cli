@@ -41,7 +41,7 @@ namespace DbUp.Cli
         private static int UpgradeDatabase(Assembly callingAssembly, BaseOptions options)
         {
             bool success;
-            var upgradeEngine = new DatabaseUpgrader(callingAssembly, options);
+            var upgradeEngine = new UpgraderRunner(callingAssembly, options);
 
             if (options.MarkAsExecuted)
             {
