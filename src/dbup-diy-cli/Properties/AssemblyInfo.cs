@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("dbup-diy-cli")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Helper for building Command-Line with dbup")]
 [assembly: AssemblyCompany("PGS Software")]
 [assembly: AssemblyProduct("dbup-diy-cli")]
 [assembly: AssemblyCopyright("Copyright © PGS Software 2017")]
