@@ -16,7 +16,7 @@ dbup is a great library but requires some repeatable setup in code:
 ### Setup
 
 1. Create a Console project (like `ConsoleApplication1`)
-1. `install package dbup-diy-cli`
+1. `Install-Package dbup-diy-cli`
 1. Add your SQL files as embedded resources
 1. Modify your `Main`:
 
