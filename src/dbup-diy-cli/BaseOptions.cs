@@ -23,16 +23,16 @@ namespace DbUp.Cli
             set { this.DevSeedPattern = new Regex(value, RegexOptions.IgnoreCase); }
         }
 
-        [Option("store-procedure-pattern", Default = "sp_", HelpText = "Regular expression to match and select stored procedure scripts (case-insensitive)")]
-        public string StoredProcedurePatternString
+        [Option("run-always-pattern", Default = "sp_", HelpText = "Regular expression to match and scripts executed every time, such as stored procedures and functions (case-insensitive)")]
+        public string RunAlwaysPatternString
         {
-            get { return this.StoredProcedurePattern?.ToString(); }
-            set { this.StoredProcedurePattern = new Regex(value, RegexOptions.IgnoreCase); }
+            get { return this.RunAlwaysPattern?.ToString(); }
+            set { this.RunAlwaysPattern = new Regex(value, RegexOptions.IgnoreCase); }
         }
 
         public Regex DevSeedPattern { get; private set; }
 
-        public Regex StoredProcedurePattern { get; private set; }
+        public Regex RunAlwaysPattern { get; private set; }
 
         public abstract string ConnectionString { get; }
 

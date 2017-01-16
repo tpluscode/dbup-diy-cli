@@ -71,7 +71,7 @@ namespace DbUp.Cli
 
         private bool IsStoredProcedure(string fileName)
         {
-            return this.options.StoredProcedurePattern.IsMatch(fileName);
+            return this.options.RunAlwaysPattern.IsMatch(fileName);
         }
 
         private bool IncludeDevSeeds(string fileName)
