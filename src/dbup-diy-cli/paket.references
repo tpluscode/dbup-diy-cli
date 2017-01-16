@@ -3,3 +3,4 @@ Resourcer.Fody
 commandlineparser
 GitVersionTask
 Stylecop.Analyzers
+NullGuard.Fody

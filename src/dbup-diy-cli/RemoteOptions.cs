@@ -1,8 +1,10 @@
 ﻿using System.Configuration;
 using CommandLine;
+using NullGuard;
 
 namespace DbUp.Cli
 {
+    [NullGuard(ValidationFlags.ReturnValues)]
     [Verb("remote", HelpText = "Updates remote database")]
     public class RemoteOptions : BaseOptions
     {

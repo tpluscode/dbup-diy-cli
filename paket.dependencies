@@ -8,5 +8,7 @@ nuget Resourcer.Fody
 nuget commandlineparser prerelease
 nuget GitVersionTask
 nuget Stylecop.Analyzers
+nuget dbup-mysql
+nuget NullGuard.Fody
 
 gist tpluscode/a285267d2543466fc35c3a168c846f9f

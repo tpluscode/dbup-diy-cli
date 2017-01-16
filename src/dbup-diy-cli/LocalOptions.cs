@@ -1,8 +1,10 @@
 ﻿using System.Data.SqlClient;
 using CommandLine;
+using NullGuard;
 
 namespace DbUp.Cli
 {
+    [NullGuard(ValidationFlags.ReturnValues)]
     [Verb("local", HelpText = "Upgrades local database")]
     public class LocalOptions : BaseOptions
     {

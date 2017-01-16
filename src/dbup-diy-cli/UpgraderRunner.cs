@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Reflection;
+using DbUp.Builder;
 using DbUp.Engine;
 using DbUp.Helpers;
 using Resourcer;
 
 namespace DbUp.Cli
 {
+    public delegate UpgradeEngineBuilder SetTargetDatabase(SupportedDatabases s, string connectionString);
+
     public class UpgraderRunner
     {
         private readonly UpgradeEngine upgradeEngine;
@@ -13,25 +16,24 @@ namespace DbUp.Cli
         private readonly UpgradeEngine procedureEngine;
         private readonly BaseOptions options;
 
-        public UpgraderRunner(Assembly callingAssembly, BaseOptions options)
+        public UpgraderRunner(Assembly callingAssembly, BaseOptions options, SetTargetDatabase setTargetDatabase)
         {
             this.options = options;
 
-            this.upgradeEngine = DeployChanges.To
-                .SqlDatabase(options.ConnectionString)
+            this.upgradeEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScriptsEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
                 .WithTransactionPerScript()
+                .LogToConsole()
                 .Build();
 
-            this.procedureEngine = DeployChanges.To
-                .SqlDatabase(options.ConnectionString)
+            this.procedureEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScriptsEmbeddedInAssembly(callingAssembly, this.IsStoredProcedure)
                 .JournalTo(new NullJournal())
                 .WithTransactionPerScript()
+                .LogToConsole()
                 .Build();
 
-            this.recreationEngine = DeployChanges.To
-                .SqlDatabase(options.ConnectionString)
+            this.recreationEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScript("Database recreated at " + DateTime.Now, Resource.AsString("Scripts.XX.RecreateDatabase.sql"))
                 .WithTransactionPerScript()
                 .LogToConsole()
@@ -52,7 +54,9 @@ namespace DbUp.Cli
                 success = this.recreationEngine.PerformUpgrade().Successful;
             }
 
-            return success && this.upgradeEngine.PerformUpgrade().Successful;
+            return success
+                && this.upgradeEngine.PerformUpgrade().Successful
+                && this.procedureEngine.PerformUpgrade().Successful;
         }
 
         public bool MarkAsExecuted()

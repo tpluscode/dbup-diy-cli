@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using CommandLine;
 using CommandLine.Text;
+using DbUp.Builder;
 
 namespace DbUp.Cli
 {
@@ -15,33 +16,37 @@ namespace DbUp.Cli
             this.args = args;
         }
 
-        public int Run()
+        public int Run(SetTargetDatabase targetDbFunc)
         {
             var callingAssembly = Assembly.GetCallingAssembly();
 
-            return Parser.Default.ParseArguments<LocalOptions, RemoteOptions>(this.args)
+            var parserResult = Parser.Default.ParseArguments<LocalOptions, RemoteOptions>(this.args);
+            return parserResult
                 .MapResult(
-                    (LocalOptions options) => UpgradeDatabase(callingAssembly, options),
-                    (RemoteOptions options) => UpgradeRemote(callingAssembly, options),
+                    (LocalOptions options) => UpgradeDatabase(callingAssembly, options, targetDbFunc),
+                    (RemoteOptions options) => UpgradeRemote(callingAssembly, options, targetDbFunc, parserResult),
                     errors => 1);
         }
 
-        private static int UpgradeRemote(Assembly callingAssembly, RemoteOptions options)
+        private static int UpgradeRemote(Assembly callingAssembly, RemoteOptions options, SetTargetDatabase setTarget, ParserResult<object> result)
         {
-            if (string.IsNullOrWhiteSpace(options.ConnectionStringOption) ||
-                string.IsNullOrWhiteSpace(options.ConnectionString))
+            if (string.IsNullOrWhiteSpace(options.ConnectionStringOption) &&
+                string.IsNullOrWhiteSpace(options.ConnectionStringName))
             {
-                Console.WriteLine($"Please provide either -c or -n switch. Run {System.Diagnostics.Process.GetCurrentProcess().ProcessName}.exe help for details");
+                Console.WriteLine("Please provide either -c or -n switch");
+                Console.WriteLine();
+                Console.WriteLine(HelpText.AutoBuild(result, text => text, example => example, true));
+
                 return 1;
             }
 
-            return UpgradeDatabase(callingAssembly, options);
+            return UpgradeDatabase(callingAssembly, options, setTarget);
         }
 
-        private static int UpgradeDatabase(Assembly callingAssembly, BaseOptions options)
+        private static int UpgradeDatabase(Assembly callingAssembly, BaseOptions options, SetTargetDatabase setTarget)
         {
             bool success;
-            var upgradeEngine = new UpgraderRunner(callingAssembly, options);
+            var upgradeEngine = new UpgraderRunner(callingAssembly, options, setTarget);
 
             if (options.MarkAsExecuted)
             {

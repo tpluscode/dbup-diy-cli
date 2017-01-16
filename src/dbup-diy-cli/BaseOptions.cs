@@ -1,8 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 using CommandLine;
+using NullGuard;
 
 namespace DbUp.Cli
 {
+    [NullGuard(ValidationFlags.ReturnValues)]
     public abstract class BaseOptions
     {
         [Option("dev-seeds", HelpText = "Seed database with sample data")]
