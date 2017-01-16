@@ -17,17 +17,16 @@ dbup is a great library but requires some repeatable setup in code:
 
 1. Create a Console project (like `ConsoleApplication1`)
 1. `Install-Package dbup-diy-cli`
-1. Add your SQL files as embedded resources
-1. Modify your `Main`:
+1. Add your SQL files as embedded resources        
+1. (optional) install db-specific package like `dbup-mysql`, `dbup-sqlite`, and change the etc
+1. Modify your `Main` and pass the appropriate method to `Run`:
 
     ``` c#
     public static int Main(string[] args)
     {
-        return new DbUp.Cli.Upgrader(args).Run();
+        return new DbUp.Cli.Upgrader(args).Run(MySqlExtensions.MySqlDatabase);
     }
     ```
-        
-1. (optional) install db-specific package like `dbup-mysql`, `dbup-sqlite`, etc
 
 ### Running
     
