@@ -46,6 +46,10 @@ To upgrade a local instance (uses Windows auth) run `ConsoleApplication1.exe loc
 --dev-seed-pattern        (Default: _dev_) Regular expression to match and
                           select developer seed script (case-insensitive)
 
+--run-always-pattern      (Default: sp_) Regular expression to match and
+                          scripts executed every time, such as stored
+                          procedures and functions (case-insensitive)
+
 --help                    Display this help screen.
 
 --version                 Display version information.
@@ -67,6 +71,10 @@ connectionstring (`-c` switch) or a name to find in `app.config` (`-n` switch)
 
 --dev-seed-pattern              (Default: _dev_) Regular expression to match
                                 and select developer seed script (case-insensitive)
+
+--run-always-pattern            (Default: sp_) Regular expression to match
+                                and scripts executed every time, such as
+                                stored procedures and functions (case-insensitive)
 
 --help                          Display this help screen.
 
