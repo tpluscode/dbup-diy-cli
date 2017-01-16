@@ -69,23 +69,14 @@ namespace DbUp.Cli
             return this.upgradeEngine.MarkAsExecuted().Successful;
         }
 
-        private static bool IsRecreateScript(string fileName)
-        {
-            return fileName.Contains("XX.RecreateDatabase.sql");
-        }
-
         private bool IsStoredProcedure(string fileName)
         {
-            var shouldIncludeScript = IsRecreateScript(fileName) == false;
-
-            shouldIncludeScript &= this.options.StoredProcedurePattern.IsMatch(fileName) == true;
-
-            return shouldIncludeScript;
+            return this.options.StoredProcedurePattern.IsMatch(fileName);
         }
 
         private bool IncludeDevSeeds(string fileName)
         {
-            var shouldIncludeScript = IsRecreateScript(fileName) == false;
+            var shouldIncludeScript = this.IsStoredProcedure(fileName) == false;
 
             if (this.options.IncludeDeveloperSeeds == false)
             {
