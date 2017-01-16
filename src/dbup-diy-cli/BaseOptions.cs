@@ -23,7 +23,7 @@ namespace DbUp.Cli
             set { this.DevSeedPattern = new Regex(value, RegexOptions.IgnoreCase); }
         }
 
-        [Option("run-always-pattern", Default = "sp_", HelpText = "Regular expression to match and scripts executed every time, such as stored procedures and functions (case-insensitive)")]
+        [Option("run-always-pattern", Default = "(sp|fn)_", HelpText = "Regular expression to match and scripts executed every time, such as stored procedures and functions (case-insensitive)")]
         public string RunAlwaysPatternString
         {
             get { return this.RunAlwaysPattern?.ToString(); }

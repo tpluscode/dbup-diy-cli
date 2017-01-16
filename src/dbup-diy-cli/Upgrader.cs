@@ -33,9 +33,11 @@ namespace DbUp.Cli
             if (string.IsNullOrWhiteSpace(options.ConnectionStringOption) &&
                 string.IsNullOrWhiteSpace(options.ConnectionStringName))
             {
-                Console.WriteLine("Please provide either -c or -n switch");
-                Console.WriteLine();
-                Console.WriteLine(HelpText.AutoBuild(result, text => text, example => example, true));
+                Console.WriteLine(HelpText.AutoBuild(
+                    result,
+                    text => text.AddPreOptionsText("Please provide either -c or -n switch"),
+                    example => example,
+                    true));
 
                 return 1;
             }

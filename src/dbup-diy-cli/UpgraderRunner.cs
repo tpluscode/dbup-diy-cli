@@ -27,7 +27,7 @@ namespace DbUp.Cli
                 .Build();
 
             this.procedureEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
-                .WithScriptsEmbeddedInAssembly(callingAssembly, this.IsStoredProcedure)
+                .WithScriptsEmbeddedInAssembly(callingAssembly, this.ShouldAlwaysExecute)
                 .JournalTo(new NullJournal())
                 .WithTransactionPerScript()
                 .LogToConsole()
@@ -69,14 +69,14 @@ namespace DbUp.Cli
             return this.upgradeEngine.MarkAsExecuted().Successful;
         }
 
-        private bool IsStoredProcedure(string fileName)
+        private bool ShouldAlwaysExecute(string fileName)
         {
             return this.options.RunAlwaysPattern.IsMatch(fileName);
         }
 
         private bool IncludeDevSeeds(string fileName)
         {
-            var shouldIncludeScript = this.IsStoredProcedure(fileName) == false;
+            var shouldIncludeScript = this.ShouldAlwaysExecute(fileName) == false;
 
             if (this.options.IncludeDeveloperSeeds == false)
             {
