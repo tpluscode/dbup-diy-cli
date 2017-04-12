@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpgradeEngineBuilderExtensions.cs" />
     <Compile Include="UpgraderRunner.cs" />
     <Compile Include="LocalOptions.cs" />
     <Compile Include="Upgrader.cs" />

@@ -22,12 +22,14 @@ namespace DbUp.Cli
 
             this.upgradeEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScriptsEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
+                .SetTimeout(options.CommandExecutionTimeoutSeconds)
                 .WithTransactionPerScript()
                 .LogToConsole()
                 .Build();
 
             this.procedureEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScriptsEmbeddedInAssembly(callingAssembly, this.ShouldAlwaysExecute)
+                .SetTimeout(options.CommandExecutionTimeoutSeconds)
                 .JournalTo(new NullJournal())
                 .WithTransactionPerScript()
                 .LogToConsole()
@@ -35,6 +37,7 @@ namespace DbUp.Cli
 
             this.recreationEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
                 .WithScript("Database recreated at " + DateTime.Now, Resource.AsString("Scripts.XX.RecreateDatabase.sql"))
+                .SetTimeout(options.CommandExecutionTimeoutSeconds)
                 .WithTransactionPerScript()
                 .LogToConsole()
                 .Build();

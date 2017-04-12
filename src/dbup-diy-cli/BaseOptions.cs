@@ -34,6 +34,9 @@ namespace DbUp.Cli
 
         public Regex RunAlwaysPattern { get; private set; }
 
+        [Option('t', "timeout", HelpText = "Timeout for each script in seconds")]
+        public int? CommandExecutionTimeoutSeconds { get; set; }
+
         public abstract string ConnectionString { get; }
 
         public abstract bool EnsureDatabase { get; }
