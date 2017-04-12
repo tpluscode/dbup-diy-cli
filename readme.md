@@ -49,6 +49,8 @@ To upgrade a local instance (uses Windows auth) run `ConsoleApplication1.exe loc
 --run-always-pattern      (Default: sp_) Regular expression to match and
                           scripts executed every time, such as stored
                           procedures and functions (case-insensitive)
+                          
+-t, --timeout             Timeout for each script in seconds                          
 
 --help                    Display this help screen.
 
@@ -75,6 +77,8 @@ connectionstring (`-c` switch) or a name to find in `app.config` (`-n` switch)
 --run-always-pattern            (Default: sp_) Regular expression to match
                                 and scripts executed every time, such as
                                 stored procedures and functions (case-insensitive)
+                                
+-t, --timeout                   Timeout for each script in seconds                                
 
 --help                          Display this help screen.
 
