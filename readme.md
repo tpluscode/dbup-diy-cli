@@ -81,6 +81,14 @@ connectionstring (`-c` switch) or a name to find in `app.config` (`-n` switch)
 --version                       Display version information.
 ```
 
+### Running Entity Framework code
+
+Install `dbup-diy-cli.EntityFramework` package from NuGet and implement `EntityFrameworkScript<T>` or
+`EntityFrameworkUpdate<T>`. 
+
+The former can be used to return a script dynamically based on some EF query.
+The latter is intended to be used to perform updates with Entity Framework.
+
 ## Why not a ready-built CLI?
 
 This way it's easier to use with database engines other that MS SQL, by installing `dbup-X` package together with 
