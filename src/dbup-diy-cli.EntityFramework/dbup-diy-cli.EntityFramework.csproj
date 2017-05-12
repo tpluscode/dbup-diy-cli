@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{034FD1F3-D888-422D-85C7-C96305E7B9AC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{AF6AB146-1532-420B-845D-71ECCAE48AFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Example</RootNamespace>
-    <AssemblyName>Example</AssemblyName>
+    <RootNamespace>dbup_diy_cli.EntityFramework</RootNamespace>
+    <AssemblyName>dbup-diy-cli.EntityFramework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,15 +20,18 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\dbup-diy-cli.EntityFramework.XML</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\paket-files\tpluscode\a285267d2543466fc35c3a168c846f9f\Library.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\dbup-diy-cli.EntityFramework.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,32 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="EntityFrameworkScript.cs" />
+    <Compile Include="EntityFrameworkUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ef\Context.cs" />
-    <Compile Include="Sprint99\EfDynamicScript.cs" />
-    <Compile Include="Sprint99\EfDynamicSeed.cs" />
-    <Compile Include="Ef\Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dbup-diy-cli.EntityFramework\dbup-diy-cli.EntityFramework.csproj">
-      <Project>{AF6AB146-1532-420B-845D-71ECCAE48AFE}</Project>
-      <Name>dbup-diy-cli.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dbup-diy-cli\dbup-diy-cli.csproj">
-      <Project>{08041BD1-562E-4F8A-878A-642C69EA4237}</Project>
-      <Name>dbup-diy-cli</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Sprint98\Script1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Sprint98\sp_ExampleProcedure.sql" />
+    <None Include="paket.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -77,23 +62,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\.paket\paket.targets" />
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.5'">
       <ItemGroup>
         <Reference Include="DbUp">
           <HintPath>..\..\packages\dbup\lib\net35\DbUp.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.5'">
-      <ItemGroup>
-        <Reference Include="DbUp.MySql">
-          <HintPath>..\..\packages\dbup-mysql\lib\net35\DbUp.MySql.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -113,17 +86,6 @@
         </Reference>
         <Reference Include="EntityFramework.SqlServer">
           <HintPath>..\..\packages\EntityFramework\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.5'">
-      <ItemGroup>
-        <Reference Include="MySql.Data">
-          <HintPath>..\..\packages\MySql.Data\lib\net45\MySql.Data.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

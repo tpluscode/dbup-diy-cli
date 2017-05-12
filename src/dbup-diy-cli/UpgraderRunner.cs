@@ -21,7 +21,7 @@ namespace DbUp.Cli
             this.options = options;
 
             this.upgradeEngine = setTargetDatabase(DeployChanges.To, options.ConnectionString)
-                .WithScriptsEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
+                .WithScriptsAndCodeEmbeddedInAssembly(callingAssembly, this.IncludeDevSeeds)
                 .SetTimeout(options.CommandExecutionTimeoutSeconds)
                 .WithTransactionPerScript()
                 .LogToConsole()
