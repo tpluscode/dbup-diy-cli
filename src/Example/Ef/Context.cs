@@ -1,19 +1,37 @@
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Example.Ef
 {
     public class Context : DbContext
     {
-        public Context(string nameOrConnectionString) : base(nameOrConnectionString)
+        private readonly string connectionString;
+
+        public Context(DbContextOptions options)
+            : base(options)
         {
         }
 
-        public IDbSet<Test> Tests { get; set; }
+        public Context(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public DbSet<Test> Tests { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Test>().ToTable("Test")
                 .Property(test => test.Col1).HasColumnName("col1");
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (string.IsNullOrWhiteSpace(this.connectionString) == false)
+            {
+                optionsBuilder.UseSqlServer(
+                    this.connectionString,
+                    builder => builder.UseRowNumberForPaging());
+            }
         }
     }
 }

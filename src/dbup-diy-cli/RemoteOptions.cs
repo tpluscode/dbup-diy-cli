@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using CommandLine;
+﻿using CommandLine;
 using NullGuard;
 
 namespace DbUp.Cli
@@ -14,18 +13,7 @@ namespace DbUp.Cli
         [Option('n', "connection-string-name", HelpText = "connection string name", SetName = "connection")]
         public string ConnectionStringName { get; set; }
 
-        public override string ConnectionString
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(this.ConnectionStringOption) == false)
-                {
-                    return this.ConnectionStringOption;
-                }
-
-                return ConfigurationManager.ConnectionStrings[this.ConnectionStringName].ConnectionString;
-            }
-        }
+        public override string ConnectionString => this.ConnectionStringOption;
 
         public override bool EnsureDatabase => false;
     }

@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using DbUp.Engine;
 
 namespace dbup_diy_cli.EntityFramework
