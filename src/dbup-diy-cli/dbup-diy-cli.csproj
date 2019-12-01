@@ -11,6 +11,7 @@
     <Description>Helper for building Command-Line with dbup</Description>
     <PackageLicenseUrl>https://raw.githubusercontent.com/tpluscode/dbup-diy-cli/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/tpluscode/dbup-diy-cli</PackageProjectUrl>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
