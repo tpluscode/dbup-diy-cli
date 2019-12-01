@@ -1,17 +1,8 @@
-install:
-  - choco install gitversion.portable -y
-
 before_build:
-  - dotnet restore
-  - ps: gitversion /l console /output buildserver
+  - ps: gitversion /l console /output buildserver /updateassemblyinfo
 
-build:
-  project: dbup-diy-cli.sln
-
-configuration: Release
-
-after_build:
-  - dotnet pack output -o nugets
+build_script:
+  - ps: dotnet pack -c Release -o nugets -p:Version=$env:GitVersion_LegacySemVerPadded
 
 artifacts:
   - path: 'nugets\*.nupkg'
